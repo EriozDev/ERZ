@@ -6,6 +6,7 @@ description 'Server Engine'
 version '1.0'
 
 shared_scripts {
+    'shared/init.lua',
     'shared/libs/logger.lua'
 }
 
