@@ -1,3 +1,22 @@
+local ERZ_STARTED = false
+
+CreateThread(function()
+    local attempt = 0
+
+    while not ERZ_STARTED do
+        Wait(1000)
+        attempt = attempt + 1
+        Logger:warn('ERZ FrameWork Starting... Don\'t stop the server !')
+        if attempt > 3 then
+            ERZ_STARTED = true
+            goto update
+        end
+    end
+
+    ::update::
+    Logger:info('ERZ FrameWork Started!')
+end)
+
 RegisterNetEvent('playerConnect', function()
     local src = source
     if not src then return end
