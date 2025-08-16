@@ -38,7 +38,6 @@ function _ped.GetLocal()
 end
 
 function _ped:setCoords(x, y, z)
-    if not (x and y and z) then return false end
     SetEntityCoords(self.ped, x, y, z, false, false, false, true)
     return true
 end
@@ -68,32 +67,32 @@ function _ped:get(k)
 end
 
 function _ped:spawn(coords, heading)
-    if not coords then return false end
-
+    Wait(0)
     ShutdownLoadingScreen()
     ResetPausedRenderphases()
     ShutdownLoadingScreenNui()
 
-    local model = joaat("mp_m_freemode_01")
+    local model = "mp_m_freemode_01"
     RequestModel(model)
     while not HasModelLoaded(model) do Wait(0) end
 
-    SetPlayerModel(self.playerId, model)
+    SetPlayerModel(PlayerId(), model)
+    Wait(100)
     local ped = PlayerPedId()
     self.ped = ped
-    SetPedDefaultComponentVariation(ped)
+    SetPedComponentVariation(ped, 1, 0, 0, 2)
 
-    while not DoesEntityExist(ped) do Wait(0) end
+    while not HasPedHeadBlendFinished(PlayerPedId()) or not DoesEntityExist(PlayerPedId()) do
+        Wait(0)
+    end
 
     NetworkResurrectLocalPlayer(coords.x, coords.y, coords.z, heading or 0.0, true, false)
 
     ClearPedTasksImmediately(ped)
     SetEntityVisible(ped, true)
     FreezeEntityPosition(ped, false)
-    SetPlayerInvincible(self.playerId, false)
+    SetPlayerInvincible(PlayerId(), false)
 
     SetEntityCoordsNoOffset(ped, coords.x, coords.y, coords.z, false, false, false)
     SetEntityHeading(ped, heading or 0.0)
-
-    return true
 end
