@@ -4,62 +4,96 @@ local __instance = {
     __index = _ped
 }
 
+local p_Index = {}
+
 function _ped.new()
     local self = {}
+    local playerId = PlayerId()
+    local serverId = GetPlayerServerId(playerId)
+
+    if p_Index[serverId] then
+        return p_Index[serverId]
+    end
+
     self.__var = {}
-    self.playerid = PlayerId()
-    self.name = GetPlayerName(GetPlayerServerId(PlayerId()))
+    self.playerId = playerId
+    self.serverId = serverId
+    self.name = GetPlayerName(playerId)
+    self.ped = PlayerPedId()
 
     setmetatable(self, __instance)
-    return self;
+    p_Index[serverId] = self
+    return self
+end
+
+function _ped:update()
+    self.ped = PlayerPedId()
+end
+
+function _ped.GetLocal()
+    local serverId = GetPlayerServerId(PlayerId())
+    local self = p_Index[serverId] or _ped.new()
+    self:update()
+    return self
+end
+
+function _ped:setCoords(x, y, z)
+    if not (x and y and z) then return false end
+    SetEntityCoords(self.ped, x, y, z, false, false, false, true)
+    return true
+end
+
+function _ped:getServerId()
+    return self.serverId
 end
 
 function _ped:addVar(k, v)
-    if self.__var[k] then
-        return false
-    end
-
+    if self.__var[k] then return false end
     self.__var[k] = v
+    return true
 end
 
 function _ped:removeVar(k)
-    if not self.__var[k] then
-        return false
-    end
-
+    if not self.__var[k] then return false end
     self.__var[k] = nil
+    return true
 end
 
 function _ped:set(k, v)
     self.__var[k] = v
 end
 
+function _ped:get(k)
+    return self.__var[k]
+end
+
 function _ped:spawn(coords, heading)
-    Wait(0)
+    if not coords then return false end
+
     ShutdownLoadingScreen()
     ResetPausedRenderphases()
     ShutdownLoadingScreenNui()
 
-    local model = "mp_m_freemode_01"
+    local model = joaat("mp_m_freemode_01")
     RequestModel(model)
     while not HasModelLoaded(model) do Wait(0) end
 
-    SetPlayerModel(PlayerId(), model)
-    Wait(100)
+    SetPlayerModel(self.playerId, model)
     local ped = PlayerPedId()
-    SetPedComponentVariation(ped, 1, 0, 0, 2)
+    self.ped = ped
+    SetPedDefaultComponentVariation(ped)
 
-    while not HasPedHeadBlendFinished(PlayerPedId()) or not DoesEntityExist(PlayerPedId()) do
-        Wait(0)
-    end
+    while not DoesEntityExist(ped) do Wait(0) end
 
     NetworkResurrectLocalPlayer(coords.x, coords.y, coords.z, heading or 0.0, true, false)
 
     ClearPedTasksImmediately(ped)
     SetEntityVisible(ped, true)
     FreezeEntityPosition(ped, false)
-    SetPlayerInvincible(PlayerId(), false)
+    SetPlayerInvincible(self.playerId, false)
 
     SetEntityCoordsNoOffset(ped, coords.x, coords.y, coords.z, false, false, false)
     SetEntityHeading(ped, heading or 0.0)
+
+    return true
 end

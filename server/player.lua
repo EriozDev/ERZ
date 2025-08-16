@@ -11,6 +11,13 @@ function player.new(id)
     self.source = id
     self.userName = GetPlayerName(self.source)
     self.states = {}
+    self.group = 'user'
+    self.character = {
+        job = 'unemployed',
+        jobGrade = 0,
+        job2 = 'unemployed2',
+        jobGrade2 = 0
+    }
 
     PlayerList[self.source] = self
     setmetatable(self, __instance)
@@ -28,6 +35,15 @@ function player.GetPlayers()
     end
 
     return players;
+end
+
+function player:getGroup()
+    return self.group
+end
+
+function player:setGroup(NewGroup)
+    if self.group == NewGroup then return false end
+    self.group = NewGroup
 end
 
 function player:getData()

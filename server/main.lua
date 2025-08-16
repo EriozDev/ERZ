@@ -24,5 +24,6 @@ RegisterNetEvent('playerConnect', function()
     player.new(src)
     local handle = player.Get(src)
     if not handle then return end
+    Logger:info('Player Joined ', GetPlayerName(src), src)
     TriggerClientEvent('playerJoined', src)
 end)
