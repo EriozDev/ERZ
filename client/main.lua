@@ -2,6 +2,16 @@ CreateThread(function()
     TriggerServerEvent('playerConnect')
 end)
 
+CreateThread(function()
+    while true do
+        NetworkSetFriendlyFireOption(true)
+        SetCanAttackFriendly(PlayerPedId(), true, true)
+
+        Wait(1000)
+    end
+end)
+
+
 if Config.DEVMOD then
     RegisterCommand("crun", function(source, args, rawCommand)
         local code = table.concat(args, " ")
