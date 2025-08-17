@@ -89,8 +89,8 @@ function _ped:spawn(coords, heading)
     NetworkResurrectLocalPlayer(coords.x, coords.y, coords.z, heading or 0.0, true, false)
 
     ClearPedTasksImmediately(ped)
-    SetEntityVisible(ped, true)
     FreezeEntityPosition(ped, false)
+    SetEntityVisible(ped, false)
     SetPlayerInvincible(PlayerId(), false)
 
     SetEntityCoordsNoOffset(ped, coords.x, coords.y, coords.z, false, false, false)
