@@ -1,4 +1,5 @@
 local ERZ_STARTED = false
+local Logger = ERZ.lib['Logger']
 
 CreateThread(function()
     local attempt = 0
@@ -15,15 +16,24 @@ CreateThread(function()
 
     ::update::
     Logger:info('ERZ FrameWork Started!')
+    local libs = GetLibs()
+    for i = 1, #libs do
+        Logger:debug('Lib ', libs[i], ' Loaded')
+    end
+
+    local globals = GetGlobals()
+    for j = 1, #globals do
+        Logger:debug('Global ', globals[j], ' Loaded')
+    end
 end)
 
 RegisterNetEvent('playerConnect', function()
-    local src = source
-    if not src then return end
-    Wait(3000)
-    player.new(src)
-    local handle = player.Get(src)
-    if not handle then return end
+    local source = source;
+    player.new(source);
+    local handle = player.Get(source);
+    if not handle then
+        return false;
+    end
     Logger:info('Player Joined ', GetPlayerName(src), src)
     TriggerClientEvent('playerJoined', src)
 end)

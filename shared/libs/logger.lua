@@ -1,4 +1,4 @@
-Logger = {}
+local Logger = {}
 
 function Logger:new(...)
     return print('[¨1ERZ^0] ', ...)
@@ -13,5 +13,9 @@ function Logger:info(...)
 end
 
 function Logger:debug(...)
-    return print('[^6Debug^0] ', ...)
+    if Config.DEVMOD then
+        return print('[^6Debug^0] ', ...)
+    end
 end
+
+ERZ.lib['Logger'] = Logger;

@@ -57,3 +57,7 @@ end
 function player:getStates()
     return self.states;
 end
+
+ERZ.G['player'] = player;
+local l = ERZ.G['player'];
+return l;
