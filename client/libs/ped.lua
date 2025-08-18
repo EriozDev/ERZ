@@ -19,7 +19,7 @@ function _ped.new()
     self.playerId = playerId
     self.serverId = serverId
     self.name = GetPlayerName(playerId)
-    self.ped = PlayerPedId()
+    self.ped = nil
 
     setmetatable(self, __instance)
     p_Index[serverId] = self

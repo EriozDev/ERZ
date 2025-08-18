@@ -29,11 +29,12 @@ end)
 
 RegisterNetEvent('playerConnect', function()
     local source = source;
+    Wait(3000);
     player.new(source);
     local handle = player.Get(source);
     if not handle then
         return false;
     end
-    Logger:info('Player Joined ', GetPlayerName(src), src)
-    TriggerClientEvent('playerJoined', src)
+    Logger:info('Player Joined ', GetPlayerName(source), source)
+    TriggerClientEvent('playerJoined', source)
 end)
