@@ -8,7 +8,8 @@ version '1.0'
 shared_scripts {
     'shared/init.lua',
     'shared/config.lua',
-    'shared/libs/logger.lua'
+    'shared/libs/logger.lua',
+    'shared/functions.lua'
 }
 
 client_scripts {
