@@ -95,4 +95,10 @@ function _ped:spawn(coords, heading)
 
     SetEntityCoordsNoOffset(ped, coords.x, coords.y, coords.z, false, false, false)
     SetEntityHeading(ped, heading or 0.0)
+
+    local resourceLib = ERZ.lib['resource']
+    local Resources = resourceLib.GetResourceList()
+    for i = 1, #Resources do
+        Resources[i]:start()
+    end
 end

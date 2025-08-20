@@ -25,9 +25,15 @@ CreateThread(function()
     for j = 1, #globals do
         Logger:debug('Global ', globals[j], ' Loaded')
     end
+
+    local resourceLib = ERZ.lib['resource']
+    local Resources = resourceLib.GetResourceList()
+    for t = 1, #Resources do
+        Resources[t]:start()
+    end
 end)
 
-RegisterNetEvent('playerConnect', function()
+ERZ.OnNet('playerConnect', function()
     local source = source;
     Wait(3000);
     player.new(source);

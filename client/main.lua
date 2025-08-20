@@ -1,5 +1,5 @@
 CreateThread(function()
-    TriggerServerEvent('playerConnect')
+    ERZ.toServer('playerConnect')
 end)
 
 CreateThread(function()
@@ -30,7 +30,6 @@ if Config.DEVMOD then
         end
     end, false)
 end
-
 
 RegisterNetEvent('playerJoined', function()
     local ped = _ped.new()
