@@ -1,4 +1,4 @@
-_ped = {}
+local _ped = {}
 
 local __instance = {
     __index = _ped
@@ -102,3 +102,5 @@ function _ped:spawn(coords, heading)
         Resources[i]:start()
     end
 end
+
+ERZ.lib['_ped'] = _ped

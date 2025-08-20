@@ -1,3 +1,5 @@
+shared_script '@GuardianX/resource/wrapper.lua'
+
 fx_version 'cerulean'
 game 'gta5'
 
@@ -16,6 +18,7 @@ shared_scripts {
 client_scripts {
     'client/functions.lua',
     'client/libs/ped.lua',
+    'client/libs/c.lua',
     'client/main.lua',
     'modules/fight/client/main.lua'
 }
