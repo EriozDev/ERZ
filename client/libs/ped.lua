@@ -90,7 +90,6 @@ function _ped:spawn(coords, heading)
 
     ClearPedTasksImmediately(ped)
     FreezeEntityPosition(ped, false)
-    SetEntityVisible(ped, false)
     SetPlayerInvincible(PlayerId(), false)
 
     SetEntityCoordsNoOffset(ped, coords.x, coords.y, coords.z, false, false, false)
