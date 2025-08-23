@@ -42,5 +42,5 @@ ERZ.OnNet('playerConnect', function()
         return false;
     end
     Logger:info('Player Joined ', GetPlayerName(source), source)
-    TriggerClientEvent('playerJoined', source)
+    ERZ.toClient('playerJoined', source)
 end)
