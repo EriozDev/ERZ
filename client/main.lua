@@ -33,9 +33,9 @@ end
 
 ERZ.OnNet('playerJoined', function()
     local _ped = ERZ.lib['_ped']
-    local ped = _ped.new()
-    ped:spawn(vec3(-415.767029, -1458.857178, 38.378784), 90.0)
     local _client = ERZ.lib['Client']
+    local ped = _ped.new()
     local client = _client.Init()
+    ped:spawn(vec3(-415.767029, -1458.857178, 38.378784), 90.0)
     client:sync()
 end)

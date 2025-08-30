@@ -25,6 +25,7 @@ client_scripts {
 
 server_scripts {
     '@oxmysql/lib/MySQL.lua',
+    'server/initSQL.lua',
     'server/player.lua',
     'server/main.lua',
     'modules/fight/server/main.lua'

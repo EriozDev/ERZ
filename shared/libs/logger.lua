@@ -5,16 +5,16 @@ function Logger:new(...)
 end
 
 function Logger:warn(...)
-    return print('[^3Warn^0]', ...)
+    return print('[^3WARN^0]', ...)
 end
 
 function Logger:info(...)
-    return print('[^5Info^0]', ...)
+    return print('[^5INFO^0]', ...)
 end
 
 function Logger:debug(...)
     if Config.DEVMOD then
-        return print('[^6Debug^0] ', ...)
+        return print('[^6DEBUG^0] ', ...)
     end
 end
 
