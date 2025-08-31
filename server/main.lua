@@ -76,58 +76,33 @@ local function GetPlayerIdentifiersData(src)
     return identifiers
 end
 
+local database = DB:new("ERZ")
+
 AddEventHandler("playerConnecting", function(name, setKickReason, deferrals)
     local src = source
     local identifiers = GetPlayerIdentifiersData(src)
-
     deferrals.defer()
     deferrals.update("Vérification de vos informations...")
 
-    MySQL.Async.fetchAll("SELECT * FROM users WHERE license = @license", {
-        ["@license"] = identifiers.license
-    }, function(result)
-        if result and result[1] then
-            MySQL.Async.execute([[
-                UPDATE users SET
-                    name = @name,
-                    steam = @steam,
-                    fivem = @fivem,
-                    discord = @discord,
-                    xbox = @xbox,
-                    live = @live,
-                    ip = @ip,
-                    hwids = @hwids
-                WHERE license = @license
-            ]], {
-                ["@name"] = name,
-                ["@steam"] = identifiers.steam,
-                ["@fivem"] = identifiers.fivem,
-                ["@discord"] = identifiers.discord,
-                ["@xbox"] = identifiers.xbox,
-                ["@live"] = identifiers.live,
-                ["@ip"] = identifiers.ip,
-                ["@hwids"] = json.encode(identifiers.hwids),
-                ["@license"] = identifiers.license
-            }, function()
-            end)
-        else
-            MySQL.Async.execute([[
-                INSERT INTO users (license, name, steam, fivem, discord, xbox, live, ip, hwids)
-                VALUES (@license, @name, @steam, @fivem, @discord, @xbox, @live, @ip, @hwids)
-            ]], {
-                ["@license"] = identifiers.license,
-                ["@name"] = name,
-                ["@steam"] = identifiers.steam,
-                ["@fivem"] = identifiers.fivem,
-                ["@discord"] = identifiers.discord,
-                ["@xbox"] = identifiers.xbox,
-                ["@live"] = identifiers.live,
-                ["@ip"] = identifiers.ip,
-                ["@hwids"] = json.encode(identifiers.hwids)
-            }, function()
-            end)
-        end
-    end)
+    local result = database:select("users", "license = ?", { identifiers.license })
+
+    local data = {
+        name = name,
+        steam = identifiers.steam,
+        fivem = identifiers.fivem,
+        discord = identifiers.discord,
+        xbox = identifiers.xbox,
+        live = identifiers.live,
+        ip = identifiers.ip,
+        hwids = json.encode(identifiers.hwids)
+    }
+
+    if result and result[1] then
+        database:update("users", data, "license = ?", { identifiers.license })
+    else
+        data.license = identifiers.license
+        database:insert("users", data)
+    end
 
     deferrals.done()
 end)

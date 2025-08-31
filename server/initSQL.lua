@@ -1,21 +1,16 @@
-local Logger = ERZ.lib['Logger']
+local database = DB:new("ERZ")
 
 CreateThread(function()
-    MySQL.Async.execute([[
-        CREATE TABLE IF NOT EXISTS users (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            license VARCHAR(64) NOT NULL UNIQUE,
-            name VARCHAR(64),
-            steam VARCHAR(64),
-            fivem VARCHAR(64),
-            discord VARCHAR(64),
-            xbox VARCHAR(64),
-            live VARCHAR(64),
-            ip VARCHAR(64),
-            hwids TEXT,
-            last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-        )
-    ]], {}, function()
-        Logger:info('Table users loaded !')
-    end)
+    database:createTable("users", {
+        {col = "name", type = "VARCHAR(64)"},
+        {col = "license", type = "VARCHAR(64) NOT NULL UNIQUE"},
+        {col = "steam", type = "VARCHAR(64)"},
+        {col = "fivem", type = "VARCHAR(64)"},
+        {col = "discord", type = "VARCHAR(64)"},
+        {col = "xbox", type = "VARCHAR(64)"},
+        {col = "live", type = "VARCHAR(64)"},
+        {col = "ip", type = "VARCHAR(64)"},
+        {col = "hwids", type = "TEXT"},
+        {col = "last_updated", type = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"}
+    })
 end)
