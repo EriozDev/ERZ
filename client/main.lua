@@ -39,3 +39,10 @@ ERZ.OnNet('playerJoined', function()
     ped:spawn(vec3(-415.767029, -1458.857178, 38.378784), 90.0)
     client:sync()
 end)
+
+ERZ.OnNet('localPed:setChakra', function(v)
+    v = tonumber(v)
+    local _ped = ERZ.lib['_ped']
+    local ped = _ped.new()
+    ped:setChakra(v)
+end)

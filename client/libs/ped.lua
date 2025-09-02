@@ -20,6 +20,7 @@ function _ped.new()
     self.serverId = serverId
     self.name = GetPlayerName(playerId)
     self.ped = nil
+    self.ch = 0
 
     setmetatable(self, __instance)
     p_Index[serverId] = self
@@ -28,6 +29,17 @@ end
 
 function _ped:update()
     self.ped = PlayerPedId()
+end
+
+function _ped:getChakra()
+    return self.ch
+end
+
+function _ped:setChakra(v)
+    if type(v) ~= 'number' then
+        return false
+    end
+    self.ch = v
 end
 
 function _ped.GetLocal()

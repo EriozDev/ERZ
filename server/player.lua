@@ -13,10 +13,7 @@ function player.new(id)
     self.states = {}
     self.group = 'user'
     self.character = {
-        job = 'unemployed',
-        jobGrade = 0,
-        job2 = 'unemployed2',
-        jobGrade2 = 0
+        ch = 0
     }
 
     PlayerList[self.source] = self
@@ -35,6 +32,14 @@ function player.GetPlayers()
     end
 
     return players;
+end
+
+function player:getChakra()
+    return self.character.ch
+end
+
+function player:setChakra(v)
+    self.character.ch = v
 end
 
 function player:getGroup()
