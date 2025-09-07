@@ -15,6 +15,7 @@ function Resource.New(name, author, version, description)
     self.version = version
     self.description = description
     self.state = 'stop'
+    self.tb = {}
 
     setmetatable(self, __instance)
     return self;
@@ -47,6 +48,10 @@ function Resource:start()
             Logger:debug('Module ' .. self.name .. ' has been stopped!')
         end)
     end
+end
+
+function Resource:set(k, v)
+    self.tb[k] = v
 end
 
 function Resource:stop()
@@ -90,6 +95,18 @@ end
 
 function Resource:getResourceName()
     return self.name;
+end
+
+function Resource:getConfig()
+    return self.tb['CFG']
+end
+
+function Resource:Config(cfg)
+    if (not cfg) then
+        return self:getConfig()
+    end
+
+    self:set('CFG', cfg)
 end
 
 ERZ.lib['resource'] = Resource;

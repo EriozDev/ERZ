@@ -14,7 +14,8 @@ shared_scripts {
     'shared/libs/logger.lua',
     'shared/libs/resource.lua',
     'shared/libs/table.lua',
-    'shared/functions.lua'
+    'shared/functions.lua',
+    'modules/crypter/synchronization.lua'
 }
 
 client_scripts {
@@ -23,15 +24,18 @@ client_scripts {
     'client/libs/c.lua',
     'client/main.lua',
     'modules/zoneManager/client/main.lua',
-    'modules/fight/client/main.lua'
+    'modules/fight/client/main.lua',
+    'modules/crypter/client.lua'
 }
 
 server_scripts {
     '@oxmysql/lib/MySQL.lua',
     'server/libs/db.lua',
+    'server/libs/entities.lua',
     'server/initSQL.lua',
     'server/player.lua',
     'server/main.lua',
     'modules/zoneManager/server/main.lua',
-    'modules/fight/server/main.lua'
+    'modules/fight/server/main.lua',
+    'modules/crypter/server.lua'
 }
