@@ -12,10 +12,11 @@ shared_scripts {
     'shared/init.lua',
     'shared/config.lua',
     'shared/libs/logger.lua',
+    'shared/wrapper.lua',
     'shared/libs/resource.lua',
     'shared/libs/table.lua',
     'shared/functions.lua',
-    'modules/crypter/synchronization.lua'
+    'modules/crypter/synchronization.lua',
 }
 
 client_scripts {

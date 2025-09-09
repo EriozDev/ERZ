@@ -11,7 +11,7 @@ function ERZ.On(eventName, fc)
 end
 
 function ERZ.EventFormatter(eventName)
-    return string.format('erz:', eventName)
+    return string.format('erz:%s', eventName)
 end
 
 function ERZ.Thread(fn)

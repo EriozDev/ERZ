@@ -80,7 +80,7 @@ AddEventHandler("entityCreating", function(entity)
 
     local pending = PendingEntityProcess(entity, firstOwner)
     if (not pending) then
-        Logger:debug(("Spawn entity refusé: entité %s (owner invalide)"):format(obj.netId))
+        --Logger:debug(("Spawn entity refusé: entité %s (owner invalide)"):format(obj.netId))
         CancelEvent()
         return
     end
